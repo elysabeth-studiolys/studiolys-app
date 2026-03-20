@@ -17,13 +17,14 @@ class CircularHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final statusBarHeight = MediaQuery.of(context).padding.top;  // ← AJOUTE
     
     return Stack(
       clipBehavior: Clip.none,
       children: [
-
+        // Container principal avec hauteur augmentée
         Container(
-          height: showIllustration ? 400 : 230,  
+          height: (showIllustration ? 400 : 230) + statusBarHeight,  // ← MODIFIE
           decoration: BoxDecoration(
             gradient: AppGradients.primaryGradient,
             borderRadius: BorderRadius.only(
@@ -43,7 +44,7 @@ class CircularHeader extends StatelessWidget {
         // Image illustration 
         if (showIllustration && illustrationPath != null)
           Positioned(
-            bottom:-60,
+            bottom: -60,
             left: 0,
             right: 0,
             child: Center(
@@ -51,16 +52,19 @@ class CircularHeader extends StatelessWidget {
                 illustrationPath!,
                 height: 380,  
                 fit: BoxFit.contain,
-
-
-               
               ),
             ),
           ),
         
+        // Contenu avec padding pour la barre de statut
         Positioned.fill(
           child: Padding(
-            padding: const EdgeInsets.all(AppDimensions.paddingL),
+            padding: EdgeInsets.only(  // ← MODIFIE
+              left: AppDimensions.paddingL,
+              right: AppDimensions.paddingL,
+              top: AppDimensions.paddingL + statusBarHeight,  // ← AJOUTE statusBarHeight
+              bottom: AppDimensions.paddingL,
+            ),
             child: child,
           ),
         ),

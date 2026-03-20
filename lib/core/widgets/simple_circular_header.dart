@@ -9,7 +9,7 @@ class SimpleCircularHeader extends StatelessWidget {
   const SimpleCircularHeader({
     super.key,
     required this.child,
-    this.height = 110,
+    this.height = 125,
   });
 
   @override
@@ -44,7 +44,7 @@ class SimpleCircularHeader extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppDimensions.paddingL,
-                vertical: AppDimensions.paddingM,
+                vertical: AppDimensions.paddingXS,
               ),
               child: child,
             ),

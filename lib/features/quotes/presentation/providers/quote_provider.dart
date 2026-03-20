@@ -27,6 +27,20 @@ final isQuoteFavoriteProvider = FutureProvider.family<bool, String>((ref, quoteT
   return await dataSource.isFavorite(quoteText);
 });
 
+// Provider pour récupérer TOUTES les citations favorites
+final favoriteQuotesProvider = FutureProvider<List<Quote>>((ref) async {
+  final dataSource = ref.watch(favoriteQuoteDataSourceProvider);
+  final favoriteModels = await dataSource.getAllFavorites();
+
+  favoriteModels.sort((a, b) => b.addedAt.compareTo(a.addedAt));
+  
+  // Convertir FavoriteQuoteModel en Quote
+  return favoriteModels.map((model) => Quote(
+    text: model.quoteText,
+    author: model.author,
+  )).toList();
+});
+
 // Notifier pour gérer les favoris
 class FavoriteQuoteNotifier extends StateNotifier<AsyncValue<void>> {
   final FavoriteQuoteDataSource dataSource;
@@ -46,8 +60,9 @@ class FavoriteQuoteNotifier extends StateNotifier<AsyncValue<void>> {
         await dataSource.addToFavorites(quoteText, author);
       }
       
-      // Invalider le provider pour rafraîchir l'état
+      // Invalider les providers pour rafraîchir l'état
       ref.invalidate(isQuoteFavoriteProvider(quoteText));
+      ref.invalidate(favoriteQuotesProvider);  // Rafraîchir la liste complète
       
       state = const AsyncValue.data(null);
     } catch (e, stack) {

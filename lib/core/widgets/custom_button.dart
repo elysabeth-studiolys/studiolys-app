@@ -4,7 +4,6 @@ import '../constants/app_text_styles.dart';
 import '../constants/app_dimensions.dart';
 import '../constants/app_shadows.dart';
 
-/// Bouton personnalisé de l'application
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -72,7 +71,7 @@ class CustomButton extends StatelessWidget {
           elevation: 0,
           padding: padding ?? const EdgeInsets.symmetric(
             horizontal: AppDimensions.paddingL,
-            vertical: AppDimensions.paddingM,
+            vertical: 14,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? AppDimensions.radiusL),

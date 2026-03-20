@@ -177,7 +177,7 @@ class _MoodInputSectionState extends ConsumerState<MoodInputSection> {
                       onPressed: () => _saveMood(context, ref, selectedDay),
                       width: double.infinity,
                     ),
-            ],
+            ],  
           ),
         );
       },

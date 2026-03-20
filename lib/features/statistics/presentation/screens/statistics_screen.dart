@@ -4,10 +4,12 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/utils/extensions/datetime_extensions.dart';
 import '../../../../core/widgets/simple_circular_header.dart';
+import '../../../../core/widgets/gradient_button.dart';
 import '../providers/statistic_provider.dart';
 import '../../domain/entities/metric_type.dart';
-import '../widgets/statistic_summary_card.dart';
+import '../widgets/metric_card_expanded.dart';
 import '../widgets/week_selector.dart';
+import '../widgets/combined_chart_dialog.dart';
 
 class StatisticsScreen extends ConsumerWidget {
   const StatisticsScreen({super.key});
@@ -23,13 +25,12 @@ class StatisticsScreen extends ConsumerWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-
+            // Header
             SimpleCircularHeader(
               child: Column(
                 children: [
                   const SizedBox(height: AppDimensions.marginS),
                   
-
                   WeekSelector(
                     weekStart: selectedWeek,
                     weekEnd: weekEnd,
@@ -46,32 +47,43 @@ class StatisticsScreen extends ConsumerWidget {
               ),
             ),
 
-
+            // Contenu
             Transform.translate(
-              offset: const Offset(0, -50),  
+              offset: const Offset(0, 0),
               child: Padding(
                 padding: const EdgeInsets.all(AppDimensions.paddingM),
                 child: Column(
                   children: [
-
-                    StatisticSummaryCard(
-                      metricType: MetricType.humeur,
-                      useGradient: true,
+                    Center(
+                      child: GradientButton(
+                        text: 'Voir le graphique combiné',
+                        icon: Icons.show_chart,
+                        onPressed: () => _showCombinedChart(context, selectedWeek),
+                      ),
                     ),
 
-                    const SizedBox(height: AppDimensions.marginL),
+                    const SizedBox(height: AppDimensions.marginXL),
 
-                    // Carte Motivation (fond blanc)
-                    StatisticSummaryCard(
-                      metricType: MetricType.motivation,
+                    MetricCardExpanded(
+                      metricType: MetricType.humeur,
+                      weekStart: selectedWeek,
                       useGradient: false,
                     ),
 
                     const SizedBox(height: AppDimensions.marginL),
 
-                    // Carte Sommeil (fond blanc)
-                    StatisticSummaryCard(
+                    MetricCardExpanded(
+                      metricType: MetricType.motivation,
+                      weekStart: selectedWeek,
+                      useGradient: false,
+                    ),
+
+                    const SizedBox(height: AppDimensions.marginL),
+
+                    // Carte Sommeil
+                    MetricCardExpanded(
                       metricType: MetricType.sommeil,
+                      weekStart: selectedWeek,
                       useGradient: false,
                     ),
 
@@ -83,6 +95,13 @@ class StatisticsScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showCombinedChart(BuildContext context, DateTime weekStart) {
+    showDialog(
+      context: context,
+      builder: (context) => CombinedChartDialog(weekStart: weekStart),
     );
   }
 }

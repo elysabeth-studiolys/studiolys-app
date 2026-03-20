@@ -1,4 +1,3 @@
-import 'package:hive/hive.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/services/storage/hive_service.dart';
 import '../../../../core/utils/extensions/datetime_extensions.dart';

@@ -3,6 +3,7 @@ import '../models/metric_note_model.dart';
 
 abstract class MetricNoteDataSource {
   Future<List<MetricNoteModel>> getNotes(String metricType, DateTime weekStart);
+  Future<List<MetricNoteModel>> getAllNotes(); 
   Future<void> addNote(MetricNoteModel note);
   Future<void> deleteNote(String id);
 }
@@ -25,6 +26,15 @@ class MetricNoteDataSourceImpl implements MetricNoteDataSource {
         )
         .toList()
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  }
+
+  @override
+  Future<List<MetricNoteModel>> getAllNotes() async {
+    final box = await hiveService.metricNotesBox;
+    final notes = box.values.cast<MetricNoteModel>().toList();
+    // Trier par date (plus récent en premier)
+    notes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return notes;
   }
 
   @override

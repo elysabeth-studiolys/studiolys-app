@@ -3,13 +3,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../features/home/data/models/mood_entry_model.dart';
 import '../../../features/todo/data/models/habit_model.dart';
 import '../../../features/todo/data/models/habit_completion_model.dart';
-import '../../../features/quotes/data/models/favorite_quote_model.dart';  // ← AJOUTER
-import '../../../features/statistics/data/models/metric_note_model.dart';  // ← AJOUTER
+import '../../../features/quotes/data/models/favorite_quote_model.dart'; 
+import '../../../features/statistics/data/models/metric_note_model.dart';  
 import '../../../features/todo/data/models/todo_item_model.dart';
 import '../../../features/todo/data/models/project_model.dart';
 import '../../../features/todo/data/models/project_task_model.dart';
+import '../../../features/journal/data/models/journal_entry_model.dart';
 
-/// Enregistre tous les adapteurs Hive de l'application
 Future<void> registerHiveAdapters() async {
   // MoodEntry
   if (!Hive.isAdapterRegistered(0)) {
@@ -45,5 +45,9 @@ Future<void> registerHiveAdapters() async {
   }
   if(!Hive.isAdapterRegistered(7)) {
     Hive.registerAdapter(ProjectTaskModelAdapter());
+  }
+
+  if(!Hive.isAdapterRegistered(8)) {
+    Hive.registerAdapter(JournalEntryModelAdapter());
   }
 }

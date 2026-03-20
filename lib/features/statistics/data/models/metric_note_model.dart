@@ -3,7 +3,7 @@ import '../../domain/entities/metric_note.dart';
 
 part 'metric_note_model.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 3)
 class MetricNoteModel extends HiveObject {
   @HiveField(0)
   final String id;
@@ -12,10 +12,10 @@ class MetricNoteModel extends HiveObject {
   final String metricType;
 
   @HiveField(2)
-  final DateTime weekStart;
+  final String content;
 
   @HiveField(3)
-  final String content;
+  final DateTime weekStart;
 
   @HiveField(4)
   final DateTime createdAt;
@@ -23,28 +23,28 @@ class MetricNoteModel extends HiveObject {
   MetricNoteModel({
     required this.id,
     required this.metricType,
-    required this.weekStart,
     required this.content,
+    required this.weekStart,
     required this.createdAt,
   });
+
+  factory MetricNoteModel.fromEntity(MetricNote entity) {
+    return MetricNoteModel(
+      id: entity.id,
+      metricType: entity.metricType,
+      content: entity.content,
+      weekStart: entity.weekStart,
+      createdAt: entity.createdAt,
+    );
+  }
 
   MetricNote toEntity() {
     return MetricNote(
       id: id,
       metricType: metricType,
-      weekStart: weekStart,
       content: content,
+      weekStart: weekStart,
       createdAt: createdAt,
-    );
-  }
-
-  factory MetricNoteModel.fromEntity(MetricNote note) {
-    return MetricNoteModel(
-      id: note.id,
-      metricType: note.metricType,
-      weekStart: note.weekStart,
-      content: note.content,
-      createdAt: note.createdAt,
     );
   }
 }

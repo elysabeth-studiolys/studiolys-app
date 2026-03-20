@@ -1,31 +1,32 @@
-class MetricNote {
+class JournalEntry {
   final String id;
-  final String metricType; 
-  final DateTime weekStart;
   final String content;
   final DateTime createdAt;
+  final DateTime? updateAt;
+  final List<String> tags;
 
-  const MetricNote({
+  const JournalEntry({
     required this.id,
-    required this.metricType,
-    required this.weekStart,
     required this.content,
     required this.createdAt,
+    this.updateAt,
+    this.tags = const[]
   });
 
-    MetricNote copyWith({
+  JournalEntry copyWith({
     String? id,
-    String? metricType,
     String? content,
-    DateTime? weekStart,
     DateTime? createdAt,
+    DateTime? updateAt,
+    List<String>? tags,
   }) {
-    return MetricNote(
+    return JournalEntry(
       id: id ?? this.id,
-      metricType: metricType ?? this.metricType,
       content: content ?? this.content,
-      weekStart: weekStart ?? this.weekStart,
       createdAt: createdAt ?? this.createdAt,
+      updateAt: updateAt ?? this.updateAt,
+      tags: tags ?? this.tags,
     );
   }
+
 }

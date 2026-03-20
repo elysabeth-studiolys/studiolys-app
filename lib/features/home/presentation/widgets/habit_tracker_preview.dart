@@ -47,7 +47,7 @@ class HabitTrackerPreview extends ConsumerWidget {
                   ),
                   child: const Icon(
                     Icons.add,
-                    color: AppColors.primary,
+                    color: Colors.white,
                     size: AppDimensions.iconL,
                   ),
                 ),
@@ -96,7 +96,7 @@ class HabitTrackerPreview extends ConsumerWidget {
                       'Aucune habitude.\nAppuyez sur + pour en ajouter.',
                       textAlign: TextAlign.center,
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.textTertiary,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -11,7 +11,6 @@ import 'app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Configuration du statut bar
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -19,20 +18,15 @@ void main() async {
     ),
   );
 
-  // Initialiser les locales pour les dates en français
   await initializeDateFormatting('fr_FR', null);
 
-  // Initialisation de Hive
   await HiveService.instance.init();
   
-  // Enregistrer les adapteurs Hive
   await registerHiveAdapters();
 
-  // Initialiser la source de données Todo
   final todoDataSource = TodoLocalDataSource();
   await todoDataSource.init();
 
-  // Lancer l'application
   runApp(
     const ProviderScope(
       child: MyApp(),
